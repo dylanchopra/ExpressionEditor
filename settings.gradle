@@ -1,0 +1,2 @@
+rootProject.name='ExpressionEditor'
+include ':app'
