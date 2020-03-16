@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -24,8 +25,8 @@ public class Solver extends AppCompatActivity {
         Intent intent = getIntent();
         expression = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
         answer = ExpressionSolver(expression);
+
         TextView view = findViewById(R.id.textView);
-        answer = answer.substring(1, answer.length()-1);
         view.setText(answer);
 
         Button closeButton = (Button) findViewById(R.id.button3);
@@ -100,7 +101,7 @@ public class Solver extends AppCompatActivity {
         Vector<String> expo = new Vector<>();
         for (int j = 0; j < simpler.size(); j++) {
             if (simpler.elementAt(j).equals("^")) {
-                double a =  Double.parseDouble(simpler.elementAt(j-1));
+                double a =  Double.parseDouble(expo.lastElement());
                 double b =  Double.parseDouble(simpler.elementAt(j+1));
                 expo.remove(expo.lastElement());
                 double result = Math.pow(a, b);
@@ -125,7 +126,7 @@ public class Solver extends AppCompatActivity {
         Vector<String> multdiv = new Vector<>();
         for (int j = 0; j < simpler.size(); j++) {
             if (simpler.elementAt(j).equals("*")) {
-                double a =  Double.parseDouble(simpler.elementAt(j-1));
+                double a =  Double.parseDouble(multdiv.lastElement());
                 double b =  Double.parseDouble(simpler.elementAt(j+1));
                 multdiv.remove(multdiv.lastElement());
                 double result = a * b;
@@ -133,7 +134,7 @@ public class Solver extends AppCompatActivity {
                 j++;
             }
             else if (simpler.elementAt((j)).equals("/")) {
-                double a =  Double.parseDouble(simpler.elementAt(j-1));
+                double a =  Double.parseDouble(multdiv.lastElement());
                 double b =  Double.parseDouble(simpler.elementAt(j+1));
                 multdiv.remove(multdiv.lastElement());
                 double result = a / b;
@@ -157,7 +158,7 @@ public class Solver extends AppCompatActivity {
         Vector<String> addsub = new Vector<>();
         for (int j = 0; j < simpler.size(); j++) {
             if (simpler.elementAt(j).equals("+")) {
-                double a =  Double.parseDouble(simpler.elementAt(j-1));
+                double a =  Double.parseDouble(addsub.lastElement());
                 double b =  Double.parseDouble(simpler.elementAt(j+1));
                 addsub.remove(addsub.lastElement());
                 double result = a + b;
@@ -165,7 +166,7 @@ public class Solver extends AppCompatActivity {
                 j++;
             }
             else if (simpler.elementAt((j)).equals("-")) {
-                double a =  Double.parseDouble(simpler.elementAt(j-1));
+                double a =  Double.parseDouble(addsub.lastElement());
                 double b =  Double.parseDouble(simpler.elementAt(j+1));
                 addsub.remove(addsub.lastElement());
                 double result = a - b;

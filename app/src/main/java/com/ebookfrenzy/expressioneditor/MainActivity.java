@@ -5,7 +5,6 @@ import com.ebookfrenzy.expressioneditor.recognizer.*;
 
 import android.content.Intent;
 import android.gesture.Gesture;
-import android.gesture.GestureLibrary;
 import android.gesture.GestureOverlayView;
 import android.gesture.GestureStroke;
 import android.os.Bundle;
@@ -76,11 +75,11 @@ public class MainActivity extends AppCompatActivity implements GestureOverlayVie
         for(int j= 0; j < ptvec.size(); j++){
             all[j] = (Point) ptvec.get(j);
 
-            String s = String.valueOf(all[j].X);
+          /*  String s = String.valueOf(all[j].X);
             s+= "," + all[j].Y;
             s+= "+" + all[j].StrokeID;
             Log.d("tag", s);
-
+            */
         }
 
         com.ebookfrenzy.expressioneditor.recognizer.Gesture gest = new com.ebookfrenzy.expressioneditor.recognizer.Gesture(all, "input");
