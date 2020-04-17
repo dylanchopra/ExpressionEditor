@@ -1,7 +1,6 @@
 package com.ebookfrenzy.expressioneditor;
 
 import androidx.appcompat.app.AppCompatActivity;
-import com.ebookfrenzy.expressioneditor.recognizer.*;
 
 import android.content.Intent;
 import android.gesture.Gesture;
@@ -10,46 +9,55 @@ import android.gesture.GestureStroke;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.ebookfrenzy.expressioneditor.recognizer.Point;
+import com.ebookfrenzy.expressioneditor.recognizer.PointCloudRecognizer;
+
+import org.w3c.dom.Text;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Vector;
 
-public class MainActivity extends AppCompatActivity implements GestureOverlayView.OnGesturePerformedListener {
+public class Practice extends AppCompatActivity implements GestureOverlayView.OnGesturePerformedListener {
 
     Button recognize;
     Button recognize2;
+    TextView tv;
     GestureOverlayView mView;
     ArrayList<GestureStroke> gstroke;
     com.ebookfrenzy.expressioneditor.recognizer.Gesture[] globalgest;
-
     public static final String EXTRA_MESSAGE = "com.ebookfrenzy.expressioneditor";
+    public static final String EXTRA_MESSAGE2 = "com.ebookfrenzy.expressioneditor2";
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_practice);
 
-        recognize = findViewById(R.id.button);
+        tv = findViewById(R.id.textView9);
+        tv.setText(generator());
+
+
+        recognize = findViewById(R.id.button5);
         recognize.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                TextView view = findViewById(R.id.textView2);
+                TextView view = findViewById(R.id.textView7);
                 view.setText("");
             }
         });
-
-        recognize2 = findViewById(R.id.button4);
+        recognize2 = findViewById(R.id.button7);
         recognize2.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                TextView view = findViewById(R.id.textView2);
+                TextView view = findViewById(R.id.textView7);
                 String s = view.getText().toString();
                 String lastchar = "";
                 String secondlast = "";
@@ -63,6 +71,7 @@ public class MainActivity extends AppCompatActivity implements GestureOverlayVie
                 if(s.length() > 2){
                     thirdlast = s.substring(s.length()-3, s.length()-2);
                 }
+
 
                 if(lastchar.equals("(") && (secondlast.equals("n") || secondlast.equals("g") || secondlast.equals("s") || secondlast.equals("t"))){
                     if(thirdlast.equals("i") || thirdlast.equals("o") || thirdlast.equals("a")) {
@@ -88,7 +97,8 @@ public class MainActivity extends AppCompatActivity implements GestureOverlayVie
             }
         }
         );
-        mView = findViewById(R.id.gestures);
+
+        mView = findViewById(R.id.gestures2);
         mView.addOnGesturePerformedListener(this);
 
         try{
@@ -98,28 +108,25 @@ public class MainActivity extends AppCompatActivity implements GestureOverlayVie
             String s = e.getMessage();
             Log.d("tag",s);
         }
-
-
     }
 
-   @Override
+    @Override
     public boolean onCreateOptionsMenu(Menu menu){
-        getMenuInflater().inflate(R.menu.menu, menu);
+        getMenuInflater().inflate(R.menu.menu2, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()){
-            case R.id.item2:
-                startActivity(new Intent(this, Practice.class));
+            case R.id.item3:
+                startActivity(new Intent(this, MainActivity.class));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
 
         }
     }
-
 
     @Override
     public void onGesturePerformed(GestureOverlayView overlay, Gesture gesture) {
@@ -141,13 +148,13 @@ public class MainActivity extends AppCompatActivity implements GestureOverlayVie
         for(int j= 0; j < ptvec.size(); j++){
             all[j] = (Point) ptvec.get(j);
 
-
+            /*
             String s = String.valueOf(all[j].X);
             s+= "," + all[j].Y;
             s+= "+" + all[j].StrokeID;
             Log.d("tag", s);
 
-
+             */
 
         }
 
@@ -158,7 +165,7 @@ public class MainActivity extends AppCompatActivity implements GestureOverlayVie
         String expression = pcr.Classify(gest, globalgest);
 
 
-        TextView v = findViewById(R.id.textView2);
+        TextView v = findViewById(R.id.textView7);
         String get = (String) v.getText();
 
         String put = get + expression;
@@ -168,10 +175,10 @@ public class MainActivity extends AppCompatActivity implements GestureOverlayVie
 
     }
 
-    public com.ebookfrenzy.expressioneditor.recognizer.Gesture[] loadTemplates() throws IOException{
-        com.ebookfrenzy.expressioneditor.recognizer.Gesture[] gestarr = new com.ebookfrenzy.expressioneditor.recognizer.Gesture[26];
+    public com.ebookfrenzy.expressioneditor.recognizer.Gesture[] loadTemplates() throws IOException {
+        com.ebookfrenzy.expressioneditor.recognizer.Gesture[] gestarr = new com.ebookfrenzy.expressioneditor.recognizer.Gesture[10];
 
-        for(int i = 0; i < 26; i++){
+        for(int i = 0; i < 10; i++){
             String id = String.valueOf(i);
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(getAssets().open(id)));
@@ -202,14 +209,27 @@ public class MainActivity extends AppCompatActivity implements GestureOverlayVie
 
     }
 
+    public String generator(){
+        String output = "";
+        String[] arr = {"9+17", "25/5+6", "12-5*2", "16/4+12-7",
+                "12-144/12", "cos(0)", "sin(0)", "37-23", "14*6", "39/3", "sqrt(225)"};
 
+        Random rand = new Random();
+        int rand1 = rand.nextInt(arr.length);
+        output = arr[rand1];
 
-    public void sendMessage(View view){
-        Intent intent = new Intent(this, Solver.class);
-        TextView string = findViewById(R.id.textView2);
-        String passer = string.getText().toString();
-        intent.putExtra(EXTRA_MESSAGE, passer);
-        startActivity(intent);
+        return output;
     }
 
+
+    public void sendMessage2(View view){
+        Intent intent = new Intent(this, Checker.class);
+        TextView string = findViewById(R.id.textView9);
+        TextView string2 = findViewById(R.id.textView7);
+        String passer = string.getText().toString();
+        String passer2 = string2.getText().toString();
+        intent.putExtra(EXTRA_MESSAGE, passer);
+        intent.putExtra(EXTRA_MESSAGE2, passer2);
+        startActivity(intent);
+    }
 }

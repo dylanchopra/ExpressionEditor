@@ -13,33 +13,49 @@ import java.util.List;
 import java.util.Stack;
 import java.util.Vector;
 
-public class Solver extends AppCompatActivity {
+public class Checker extends AppCompatActivity {
+
     String expression;
     String answer;
+    String givenAnswer;
+    TextView tv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_solver);
+        setContentView(R.layout.activity_checker);
+
+        String appended = "";
+        String correct = "CORRECT!";
+        String wrong = "           INCORRECT! \n The correct answer is: ";
 
         Intent intent = getIntent();
-        expression = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
+        expression = intent.getStringExtra(Practice.EXTRA_MESSAGE);
         answer = ExpressionSolver(expression);
 
-        TextView view = findViewById(R.id.textView);
+        givenAnswer = intent.getStringExtra(Practice.EXTRA_MESSAGE2);
+        appended = "[" + givenAnswer + ".0]";
+
+        tv = findViewById(R.id.textView10);
+
+        if(appended.equals(answer)){
+            tv.setText(correct);
+        }
+        else{
+            tv.setText(wrong);
+        }
+
+        TextView view = findViewById(R.id.textView11);
         view.setText(answer);
 
-        Button closeButton = (Button) findViewById(R.id.button3);
+        Button closeButton = (Button) findViewById(R.id.button9);
         closeButton.setOnClickListener(new View.OnClickListener() {
-
-            @Override
             public void onClick(View v) {
-                finish();
+                Intent intent2 = new Intent(Checker.this, Practice.class);
+                startActivity(intent2);
             }
         });
-
     }
-
 
     private static Vector<String> ESolver(Vector<String> expr) {
         Vector<String> simpler = new Vector<>();

@@ -1,11 +1,14 @@
 <resources>
-    <string name="app_name">ExpressionEditor</string>
+    <string name="app_name">Expression Editor</string>
     <string name="compute">Compute</string>
     <string name="name">Name</string>
     <string name="draw_your_expression_here">Draw each character of your expression one at a time.</string>
+    <string name="write">Solve the given expression.</string>
     <string name="decipher">Answer</string>
     <string name="your_expression">Your expression</string>
     <string name="recognize">Clear</string>
     <string name="answer">Answer:</string>
     <string name="returns">Return</string>
+    <string name="backspace">Backspace</string>
+    <string name="check">Check</string>
 </resources>
