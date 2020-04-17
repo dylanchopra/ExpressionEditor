@@ -44,6 +44,7 @@
         android:text="@string/write"
         android:textColor="#838383"
         android:textSize="14sp"
+        android:textStyle="italic"
         app:layout_constraintBottom_toTopOf="@+id/textView7"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

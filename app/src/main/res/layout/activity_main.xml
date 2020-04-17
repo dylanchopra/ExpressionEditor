@@ -63,14 +63,13 @@
         android:id="@+id/textView3"
         android:layout_width="230dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@android:dimen/notification_large_icon_height"
         android:text="@string/draw_your_expression_here"
         android:textColor="#838383"
         android:textSize="14sp"
-        app:layout_constraintBottom_toTopOf="@+id/textView2"
+        android:textStyle="italic"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/gestures" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/button4"

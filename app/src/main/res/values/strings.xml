@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ExpressionEditor</string>
+    <string name="app_name">Expression Editor</string>
     <string name="compute">Compute</string>
     <string name="name">Name</string>
     <string name="draw_your_expression_here">Draw each character of your expression one at a time.</string>

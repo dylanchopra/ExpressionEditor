@@ -141,13 +141,13 @@ public class MainActivity extends AppCompatActivity implements GestureOverlayVie
         for(int j= 0; j < ptvec.size(); j++){
             all[j] = (Point) ptvec.get(j);
 
-            /*
+
             String s = String.valueOf(all[j].X);
             s+= "," + all[j].Y;
             s+= "+" + all[j].StrokeID;
             Log.d("tag", s);
 
-             */
+
 
         }
 

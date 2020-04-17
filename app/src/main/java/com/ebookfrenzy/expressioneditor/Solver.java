@@ -46,8 +46,6 @@ public class Solver extends AppCompatActivity {
 
         Vector<String> subvec = new Vector<>();
 
-        //simpler = expr; //FIXME Remove later!
-
         //These three things are for keeping track of parentheses scope and depth.
         int parthes_str = 0;
         int parthes_end = 0;
@@ -117,7 +115,19 @@ public class Solver extends AppCompatActivity {
                 wordBank.add(Double.toString(result));
                 j++;
             }
-            else if (simpler.elementAt(j).equals("log")) { //FIXME Does it only in base 10.
+            else if (simpler.elementAt(j).equals("sqrt")) {//Square Root
+                double b =  Double.parseDouble(simpler.elementAt(j+1));
+                double result = Math.sqrt(b);
+                wordBank.add(Double.toString(result));
+                j++;
+            }
+            else if (simpler.elementAt(j).equals("cbrt")) {//Cube Root
+                double b =  Double.parseDouble(simpler.elementAt(j+1));
+                double result = Math.cbrt(b);
+                wordBank.add(Double.toString(result));
+                j++;
+            }
+            else if (simpler.elementAt(j).equals("log")) { //Does log only in base 10.
                 double b =  Double.parseDouble(simpler.elementAt(j+1));
                 double result = Math.log(b)/Math.log(10);
                 wordBank.add(Double.toString(result));
@@ -265,7 +275,6 @@ public class Solver extends AppCompatActivity {
                     temp = "";
                 }
 
-                //FIXME ADD IN THE REMAINING WORDS HERE AND SOLVE THEM UP ABOVE. NEED TO FIX FOR VARIABLES AS WELL.
                 if (i+1 < expr.length()) { //For 2-letter words
                     if (expr.charAt(i) == 'l' && expr.charAt(i+1) == 'n') { //SIN
                         myVec.add("ln");
@@ -296,6 +305,20 @@ public class Solver extends AppCompatActivity {
                     else if (expr.charAt(i) == 'l' && expr.charAt(i+1) == 'o' && expr.charAt(i+2) == 'g') { //LOG
                         myVec.add("log");
                         i = i + 2;
+                        temp = "";
+                        continue;
+                    }
+                }
+                if (i+3 < expr.length()) { //For 4-letter words
+                    if (expr.charAt(i) == 's' && expr.charAt(i+1) == 'q' && expr.charAt(i+2) == 'r' && expr.charAt(i+3) == 't') { //SQRT
+                        myVec.add("sqrt");
+                        i = i + 3;
+                        temp = "";
+                        continue;
+                    }
+                    else if (expr.charAt(i) == 'c' && expr.charAt(i+1) == 'b' && expr.charAt(i+2) == 'r' && expr.charAt(i+3) == 't') { //SQRT
+                        myVec.add("cbrt");
+                        i = i + 3;
                         temp = "";
                         continue;
                     }
